@@ -1,0 +1,27 @@
+/* Language dropdown */
+
+nav.main-navigation .language {
+  display: flex;
+  align-items: center;
+  height: 64px;
+  margin-left: 20px;
+}
+nav.main-navigation .language .flag {
+  width: 50px;
+  height: 20px;
+}
+
+nav .dropdown-menu>li {
+  width: 100%;
+}
+
+nav .dropdown-menu>li>a>div.flag {
+  margin-right: 5px;
+}
+
+nav.main-navigation .language .language-menu>div {
+  display: flex;
+  align-items: center;
+}
+
+/* Language dropdown END */

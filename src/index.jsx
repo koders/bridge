@@ -1,26 +1,38 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import AppState from './AppState';
-import App from './App';
+import { Router, Route, IndexRedirect, browserHistory } from 'react-router';
 
-const appState = new AppState();
+import UserStore from './stores/UserStore';
+import App from './components/App';
+import Tournaments from './components/Tournaments/Tournaments.jsx';
+import Error from './components/Error/Error.jsx';
+
+const userStore = new UserStore();
 
 render(
-  <AppContainer>
-    <App appState={appState} />
-  </AppContainer>,
+    <Router history={browserHistory}>
+      <Route path="/" component={() => <App userStore={userStore}/>}>
+        <IndexRedirect to="/tournaments" />
+        <Route path="tournaments" component={Tournaments}/>
+        <Route path="*" component={Error}/>
+      </Route>
+    </Router>,
   document.getElementById('root')
 );
 
 if (module.hot) {
-  module.hot.accept('./App', () => {
-    const NextApp = require('./App').default;
+  module.hot.accept('./components/App', () => {
+    const NextApp = require('./components/App').default;
 
     render(
-      <AppContainer>
-        <NextApp appState={appState} />
-      </AppContainer>,
+        <Router history={browserHistory}>
+          <Route path="/" component={() => <App userStore={userStore}/>}>
+            <IndexRedirect to="/tournaments" />
+            <Route path="tournaments" component={Tournaments}/>
+            <Route path="*" component={Error}/>
+          </Route>
+        </Router>,
       document.getElementById('root')
     );
   });

@@ -1,0 +1,29 @@
+.brand-logo,
+.nav-wrapper>ul {
+  height: inherit;
+}
+
+.brand-logo img {
+  height: 64px;
+}
+
+nav.main-navigation {
+  padding-right: 15px;
+}
+
+nav.main-navigation .profile-dropdown ul li {
+  width: 100%;
+}
+
+/* Main content */
+.main-content-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+.main-content {
+  margin-left: 240px;
+  padding: 20px;
+  width: 100%;
+}
+/* Main content END */

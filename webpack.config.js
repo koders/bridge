@@ -5,8 +5,7 @@ module.exports = {
   devtool: 'eval',
   entry: [
     'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
+    'webpack-hot-middleware/client',
     './src/index'
   ],
   output: {
@@ -15,7 +14,8 @@ module.exports = {
     publicPath: '/static/'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
   ],
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -25,6 +25,12 @@ module.exports = {
       test: /\.jsx?$/,
       loaders: ['babel'],
       include: path.join(__dirname, 'src')
-    }]
+    },
+    {
+      test: /\.css$/,
+      loaders: ['style-loader', 'css-loader']
+    },
+    { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader:"url?limit=10000&mimetype=application/font-woff" },
+        { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file" }]
   }
 };
