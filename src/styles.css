@@ -1,3 +1,7 @@
+body, h1, h2, h3, h4, h5, h6, p, div {
+  font-weight: 300;
+}
+
 .brand-logo,
 .nav-wrapper>ul {
   height: inherit;
@@ -25,5 +29,13 @@ nav.main-navigation .profile-dropdown ul li {
 /* Helpers */
 .bold {
   font-weight: bold;
+}
+
+.w300 {
+  font-weight: 300;
+}
+
+.text-center {
+  text-align: center;
 }
 /* Helpers END */

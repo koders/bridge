@@ -35,7 +35,6 @@ class TournamentStore {
 	}
 
 	getTournament(id){
-		// this.readTournament(id);
 		return this.tournaments.get(id);
 	}
 

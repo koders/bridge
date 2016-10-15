@@ -5,7 +5,14 @@ import reactCSS from 'reactcss';
 
 import Participant from './Participant';
 
-// import './Tournament.css';
+
+const styles = reactCSS({
+  'default': {
+    collection: {
+      border: 0
+    }
+  },
+})
 
 @observer(['tournamentStore', 'iUserStore'])
 export default class Tournament extends Component {
@@ -17,23 +24,18 @@ export default class Tournament extends Component {
   render() {
     const user = this.props.iUserStore;
     const tournamentId = this.props.params.tournamentId;
-    const tournament = this.props.tournamentStore.getTournament(tournamentId);
-    console.log(tournament);
-    const participants = tournament && tournament.participants.map(participant => (
-      <Participant key={participant.id} participant={participant} />
+    const tournament = this.props.tournamentStore.getTournament(tournamentId) || '';
+    const participants = tournament && tournament.participants.map(
+      (participant, index) => (
+      <Participant key={participant.id} participant={participant} index={index + 1} />
     ));
     return (
       <div className="tournament">
-        <nav>
-          <div className="nav-wrapper">
-            <div className="col s12">
-              <a href="/tournaments" className="breadcrumb">Tournaments</a>
-              <a className="breadcrumb">{this.props.params.tournamentId}</a>
-            </div>
-          </div>
-        </nav>
-        <h3 className="center-align">Participants</h3>
-        { participants }
+        <h3 className="header center-align w300">{tournament.name}</h3>
+        <h4 className="header center-align w300">Participants</h4>
+        <div className="collection" style={styles.collection}>
+          { participants }
+        </div>
       </div>
     )
   }
