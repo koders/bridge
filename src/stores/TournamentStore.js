@@ -1,50 +1,67 @@
-import { observable, computed } from 'mobx';
+import { observable, computed, asMap } from 'mobx';
+import axios from 'axios';
 
-export default class TournamentStore {
-	@observable tournaments = [
-    {
-      id: 1,
-      name: 'Sample tournament',
-      type: 'pair',
-      image: 'http://lorempixel.com/100/190/nature/6',
-      organizer: 'SBK',
-      director: 'John Doe',
-      date: new Date('2016-11-09T10:00:00'),
-      registrationDate: '',
-      venue: '',
-      fee: '',
-      information: '',
-      participants:[
+class TournamentStore {
+	@observable tournaments = new Map();
 
-      ],
-      pageVisits: 0,
-    },
-    {
-      id: 2,
-      name: 'Sample tournament2',
-      type: 'team',
-      image: 'http://lorempixel.com/100/190/nature/6',
-      organizer: 'SBK',
-      director: 'John Doe',
-      date: new Date('2016-11-09T10:00:00'),
-      registrationDate: '',
-      venue: '',
-      fee: '',
-      information: '',
-      participants:[
-				['100002875441041', '100009134306342'],
-      ],
-      pageVisits: 0,
-    }
-  ];
-
-	findById(id){
-		return this.tournaments.filter(tournament => tournament.id == id);
+	constructor(){
+		this.readTournaments();
 	}
 
-	getParticipants(tournamentId){
-		let participants = [];
-		return this.tournaments.filter(tournament => tournament.id == id);
+	/**
+ 	* get a list of tournaments
+ */
+	readTournaments(){
+		const self = this;
+		axios.get('/api/tournaments')
+			.then(function (response) {
+				self.tournaments = new observable(asMap(response.data.map(i => [i.id, i])));
+				console.log(self.tournaments);
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+	}
+
+	readTournament(id){
+		const self = this;
+		axios.get(`/api/tournaments/${id}`)
+			.then(function (response) {
+				self.tournaments.set(id, response.data);
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+	}
+
+	getTournament(id){
+		// this.readTournament(id);
+		return this.tournaments.get(id);
+	}
+
+	readUser(id){
+		const self = this;
+		axios.get(`/api/users/${id}`)
+			.then(function (response) {
+				self.users.set(id, response.data);
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+	}
+
+	getUser(id){
+		if(this.users.has(id)){
+			return this.users.get(id);
+		} else {
+			this.readUser(id);
+		}
+	}
+
+	getUser(participantId){
+		return
 	}
 
 }
+
+export default new TournamentStore();

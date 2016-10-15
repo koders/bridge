@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import Time from 'react-time';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 
+@inject('tournamentStore')
 @observer
 export default class Tournaments extends Component {
 
   render() {
-    const tournaments = this.props.tournamentStore.tournaments;
+    let tournaments = [];
+    if(this.props.tournamentStore.tournaments &&
+      this.props.tournamentStore.tournaments.size > 0)
+    {
+      tournaments = [...this.props.tournamentStore.tournaments.values()];
+    }
     return (
       <div>
         <h1 className="center-align">Tournaments</h1>
