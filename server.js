@@ -59,10 +59,38 @@ const mockUser = {
 	surname: 'Fridrihsons'
 };
 
+const mockUser2 = {
+	id: '100009134306342',
+	name: 'Leo',
+	surname: 'Vegners'
+};
+
+const mockUser3 = {
+	id: '100003637018761',
+	name: 'Gatis',
+	surname: 'Priedītis'
+};
+
+const mockUser4 = {
+	id: '100000167787159',
+	name: 'Diāna',
+	surname: 'Kampara'
+};
+
 const mockParticipant = {
 	id: 1,
 	tournament: 2,
-	user: '100002875441040'
+	type: 'pair',
+	user1: '100002875441040',
+	user2: '100009134306342'
+}
+
+const mockParticipant2 = {
+	id: 2,
+	tournament: 2,
+	type: 'pair',
+	user1: '100003637018761',
+	user2: '100000167787159'
 }
 
 app.get('/api', function(req, res) {
@@ -79,8 +107,13 @@ app.get('/api/tournaments/:id', (req, res) => {
 		tournament.participants = [];
 
 		const participant = {...mockParticipant};
-		participant.user = mockUser;
+		const participant2 = {...mockParticipant2};
+		participant.user1 = mockUser;
+		participant.user2 = mockUser2;
+		participant2.user1 = mockUser3;
+		participant2.user2 = mockUser4;
 		tournament.participants.push(participant);
+		tournament.participants.push(participant2);
 		res.send(tournament);
 	} else {
 		res.status(204).send();
