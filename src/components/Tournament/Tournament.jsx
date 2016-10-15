@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { observer } from 'mobx-react';
+import reactCSS from 'reactcss';
 
-import './Tournament.css';
+import Participant from './Participant';
+
+// import './Tournament.css';
 
 @observer(['tournamentStore', 'iUserStore'])
 export default class Tournament extends Component {
@@ -17,15 +20,7 @@ export default class Tournament extends Component {
     const tournament = this.props.tournamentStore.getTournament(tournamentId);
     console.log(tournament);
     const participants = tournament && tournament.participants.map(participant => (
-      <div className="row" key={participant.id}>
-        <div className="col s4 center-align participant">
-          <img className="picture" src={`http://graph.facebook.com/${participant.user.id}/picture?height=100`} alt=""/>
-          <div className="info">
-            <div className="bold"></div>
-            <img className="club-picture" src="http://www.bridgegeek.com/LBF/RSBK%20logo.png"/>
-          </div>
-        </div>
-      </div>
+      <Participant key={participant.id} participant={participant} />
     ));
     return (
       <div className="tournament">
