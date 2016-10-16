@@ -38,4 +38,9 @@ nav.main-navigation .profile-dropdown ul li {
 .text-center {
   text-align: center;
 }
+
+.content-center {
+  display: flex;
+  justify-content: center;
+}
 /* Helpers END */
