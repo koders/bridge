@@ -4,12 +4,11 @@ import DevTools from 'mobx-react-devtools';
 import { browserHistory, Route, Router, Link } from 'react-router';
 import ProfileButton from './ProfileButton/ProfileButton.jsx';
 // Materialize
-var $ = window.jQuery = require('jquery');
 require("materialize-loader");
 require("materialize-css");
 // Daemonite materialize
-import '../../lib/daemonite/base.js';
-import '../../lib/daemonite/project.js';
+require ('../../lib/daemonite/base.js');
+require ('../../lib/daemonite/project.js');
 
 class App extends Component {
   constructor(props) {
